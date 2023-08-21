@@ -11,8 +11,8 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ProductManager productManager = new ProductManager(new InMemoryProductDal());
-            foreach (var item in productManager.getAll())
+            ProductManager productManager = new ProductManager(new EfProductDal());
+            foreach (var item in productManager.GeyByUnitPrice(100,200))
             {
                 Console.WriteLine(item.ProductName);
             }
