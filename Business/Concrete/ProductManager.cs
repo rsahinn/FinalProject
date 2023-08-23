@@ -33,28 +33,34 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> getAll()
         {
-            
-            return new DataResult<List<Product>>(_productDal.GetAll(),true,"Ürünler listelendi.");
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            return _productDal.GetAll(x => x.CategoryId == id);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.CategoryId == id));
         }
 
-        public Product GetById(int productId)
+        public IDataResult<Product> GetById(int productId)
         {
-            return _productDal.Get(x => x.ProductId == productId);
+            return  new SuccessDataResult<Product>(_productDal.Get(x => x.ProductId == productId));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetail()
         {
-            return _productDal.GetProductDetail();
+            return new SuccessDataResult<List< ProductDetailDto>> (_productDal.GetProductDetail());
+                
         }
 
-        public List<Product> GeyByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GeyByUnitPrice(decimal min, decimal max)
         {
-            return _productDal.GetAll(x => x.UnitPrice <= max && x.UnitPrice >= min);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.UnitPrice <= max && x.UnitPrice >= min));
+                
         }
     }
 }
