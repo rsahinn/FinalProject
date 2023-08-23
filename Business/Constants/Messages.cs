@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Business.Constants
 {
-    internal class Messages
+    public class Messages
     {
+        public static string ProductAdded = "Ürün eklendi";
+        public static string ProductNameInvalid = "Ürün ismi geçersiz";
     }
 }

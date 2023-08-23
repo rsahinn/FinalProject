@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entitiy.Concrete;
@@ -22,16 +23,21 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
+            if (product.ProductName.Length<2)
+            {
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
             _productDal.Add(product);
-            return new Result(true,"Ürün eklendi.");
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Product> getAll()
+        public IDataResult<List<Product>> getAll()
         {
-            return _productDal.GetAll();
+            
+            return new DataResult<List<Product>>(_productDal.GetAll(),true,"Ürünler listelendi.");
         }
 
-        public List<Product> GetAllByCategoryId(int id)
+        public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
             return _productDal.GetAll(x => x.CategoryId == id);
         }
@@ -41,7 +47,7 @@ namespace Business.Concrete
             return _productDal.Get(x => x.ProductId == productId);
         }
 
-        public List<ProductDetailDto> GetProductDetail()
+        public IDataResult<List<ProductDetailDto>> GetProductDetail()
         {
             return _productDal.GetProductDetail();
         }
