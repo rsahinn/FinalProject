@@ -1,6 +1,7 @@
 ﻿using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entitiy.Concrete;
+using Entity.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace DataAccess.Concrete.InMemory
         public List<Product> GetAll()
         {
             return _products.ToList();
+        }
+
+        public List<ProductDetailDto> GetProductDetail()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Product entity)

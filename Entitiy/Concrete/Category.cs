@@ -1,4 +1,4 @@
-﻿using Entitiy.Abstract;
+﻿using Core.Entitiy;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
