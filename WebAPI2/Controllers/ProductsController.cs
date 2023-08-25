@@ -12,7 +12,7 @@ namespace WebAPI2.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-   
+
     public class ProductsController : ControllerBase
     {
         IProductService _productService;
@@ -22,13 +22,48 @@ namespace WebAPI2.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public List<Product> Get()
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
         {
 
             var result = _productService.getAll();
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
+        [HttpPost("Add")]
+        public IActionResult Add(Product product)
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("GetById")]
+        public IActionResult GetById(int id)
+        {
+            var result = _productService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPut("Put")]
+        public IActionResult Put(Product product)
+        {
+            var result=_productService.Update(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }
 //Constructor yapı kullanmak yerine newleme işlemi yaparsak o Manager
